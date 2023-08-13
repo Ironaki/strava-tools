@@ -9,12 +9,6 @@ STRAVA_API = "https://www.strava.com/api/v3"
 TOKEN = get_tokens().access_token
 HEADER = {"Authorization": f"Bearer {TOKEN}"}
 
-# logging.basicConfig(
-#     format="[%(levelname)s] - %(asctime)s.%(msecs)dZ - %(name)s - %(message)s",
-#     datefmt="%Y-%m-%dT%H:%M:%S",
-#     level=logging.DEBUG,
-#     force=True,
-# )
 logger = logging.getLogger(__name__)
 
 

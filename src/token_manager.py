@@ -8,11 +8,6 @@ from gcp_secret_manager import GCPSecretsManager
 
 secret_manager = GCPSecretsManager()
 
-logging.basicConfig(
-    format="[%(levelname)s] - %(asctime)s.%(msecs)dZ - %(name)s - %(message)s",
-    datefmt="%Y-%m-%dT%H:%M:%S",
-    level=logging.INFO,
-)
 logger = logging.getLogger(__name__)
 
 

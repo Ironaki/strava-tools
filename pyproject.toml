@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "strava-tools"
+version = "0.1.0"
+description = ""
+authors = ["Armstrong Li <z-li@unext.jp>"]
+readme = "README.md"
+packages = [{include = "strava_tools"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+google-cloud-functions = "^1.13.0"
+functions-framework = "^3.4.0"
+google-cloud-secret-manager = "^2.16.1"
+google-cloud-logging = "^3.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

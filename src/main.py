@@ -4,7 +4,6 @@ import threading
 import functions_framework
 
 from const import GEAR_NAME_TO_ID_MAPPING
-from strava import Activity
 
 logging.basicConfig(
     format="[%(levelname)s] - %(asctime)s.%(msecs)dZ - %(name)s - %(message)s",
@@ -43,6 +42,8 @@ def strava_webhook_trigger(request):
 
 
 def update_activity(activity_id):
+    from strava import Activity
+
     activity = Activity(activity_id)
     # If from Instinct, hide from home feed, mark as commute, and set gear
     if activity.device_name == "Garmin Instinct":

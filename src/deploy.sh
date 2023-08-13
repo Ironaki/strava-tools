@@ -7,4 +7,4 @@ gcloud functions deploy strava-updater \
   --trigger-http \
   --service-account cloud-function-strava-updater@main-pj-al.iam.gserviceaccount.com \
   --allow-unauthenticated \
-  --memory=256Mi
+  --memory=192Mi

@@ -45,7 +45,6 @@ class StravaTokens:
 
 def get_tokens():
     """Get strava tokens from Google Cloud Secret Manager, refresh if needed."""
-    logger.info("Got Strava tokens")
     data = json.loads(secret_manager.access_secret_version("STRAVA_TOKENS"))
     strava_tokens = StravaTokens(
         data["access_token"],
@@ -57,6 +56,7 @@ def get_tokens():
     # Refresh token if it has less than 5 min to expire
     if strava_tokens.expires_at - time.time() < 5 * 60:
         strava_tokens = refresh_access_token(strava_tokens)
+    logger.info("Got Strava tokens")
     return strava_tokens
 
 

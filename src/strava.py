@@ -27,6 +27,7 @@ class Activity:
         self.device_name = self.activity["device_name"]
         self.private = self.activity["private"]
         self.commute = self.activity["commute"]
+        self.sport_type = self.activity["sport_type"]
 
     def get_activity(self):
         resp = requests.get(

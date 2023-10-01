@@ -4,8 +4,6 @@ import threading
 
 import functions_framework
 
-from const import GEAR_NAME_TO_ID_MAPPING
-
 ENV = os.environ.get("ENV", "dev")
 
 if ENV == "prod":
@@ -31,13 +29,8 @@ def strava_webhook_trigger(request):
         <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
     """
     request_method = request.method
-    if request_method == "GET":
-        return {
-            "message": "Healthy",
-            "version": "0.1.0",
-            "hub.challenge": request.args.get("hub.challenge"),
-        }, 200
-    elif request_method == "POST":
+
+    if request_method == "POST":
         req_body = request.get_json()
         logger.info(f"POST Body: {req_body}")
         object_type, aspect_type = req_body["object_type"], req_body["aspect_type"]
@@ -47,16 +40,23 @@ def strava_webhook_trigger(request):
         else:
             logger.info("Skipped event")
         return {}, 200
+    elif request_method == "GET":
+        return {
+            "message": "Healthy",
+            "version": "0.1.0",
+            "hub.challenge": request.args.get("hub.challenge"),
+        }, 200
     else:
         return {"message": "Method not allowed"}, 405
 
 
 def update_activity(activity_id):
+    from const import GEAR_NAME_TO_ID_MAPPING
     from strava import Activity
 
     activity = Activity(activity_id)
     # If from Instinct, hide from home feed, mark as commute, and set gear
-    if activity.device_name == "Garmin Instinct":
+    if activity.device_name == "Garmin Instinct" and activity.sport_type == "Ride":
         activity.update_activity(
             {
                 "hide_from_home": True,

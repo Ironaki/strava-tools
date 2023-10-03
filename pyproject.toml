@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "strava-tools"
-version = "0.1.0"
-description = ""
+version = "v1.0.0"
+description = "Update an activity accordingly"
 authors = ["Armstrong Li <z-li@unext.jp>"]
 readme = "README.md"
 packages = [{include = "strava_tools"}]
@@ -12,7 +12,6 @@ google-cloud-functions = "^1.13.0"
 functions-framework = "^3.4.0"
 google-cloud-secret-manager = "^2.16.1"
 google-cloud-logging = "^3.6.0"
-
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.14.0"

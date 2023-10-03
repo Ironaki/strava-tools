@@ -5,6 +5,8 @@ import threading
 import functions_framework
 
 ENV = os.environ.get("ENV", "dev")
+with open("version.txt") as f:
+    VERSION = f.read().strip()
 
 if ENV == "prod":
     import google.cloud.logging
@@ -24,6 +26,20 @@ logger = logging.getLogger(__name__)
 @functions_framework.http
 def strava_webhook_trigger(request):
     """HTTP Cloud Function. Basically Flask.
+
+    Strava's POST payload looks like this:
+    {
+        "aspect_type": "update",
+        "event_time": 1516126040,
+        "object_id": 1360128428,
+        "object_type": "activity",
+        "owner_id": 134815,
+        "subscription_id": 120475,
+        "updates": {
+            "title": "Messy"
+        }
+    }
+
     Args:
         request (flask.Request): The request object.
         <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
@@ -43,7 +59,7 @@ def strava_webhook_trigger(request):
     elif request_method == "GET":
         return {
             "message": "Healthy",
-            "version": "0.1.0",
+            "version": VERSION,
             "hub.challenge": request.args.get("hub.challenge"),
         }, 200
     else:

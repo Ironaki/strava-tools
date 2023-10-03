@@ -1,4 +1,5 @@
 poetry export --without-hashes -f requirements.txt -o requirements.txt
+poetry version | tr ' ' '\n' | tail -1 > version.txt
 
 gcloud beta functions deploy strava-updater \
   --gen2 \

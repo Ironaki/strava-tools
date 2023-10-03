@@ -11,7 +11,7 @@ gcloud beta functions deploy strava-updater \
   --service-account cloud-function-strava-updater@main-pj-al.iam.gserviceaccount.com \
   --allow-unauthenticated \
   --set-env-vars ENV=prod \
-  --memory=512Mi \
-  --cpu=0.583
+  --memory=2048Mi \
+  --cpu=1
 
 rm requirements.txt

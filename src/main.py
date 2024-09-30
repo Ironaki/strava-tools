@@ -71,8 +71,11 @@ def update_activity(activity_id):
     from strava import Activity
 
     activity = Activity(activity_id)
-    # If from Instinct, hide from home feed, mark as commute, and set gear
-    if activity.device_name == "Garmin Instinct" and activity.sport_type == "Ride":
+    # If from Instinct or Enduro 3, hide from home feed, mark as commute, and set gear
+    if (
+        activity.device_name in ["Garmin Instinct", "Garmin Enduro 3"]
+        and activity.sport_type == "Ride"
+    ):
         activity.update_activity(
             {
                 "hide_from_home": True,
@@ -85,3 +88,6 @@ def update_activity(activity_id):
     elif activity.device_name == "TrainerRoad":
         activity.update_activity({"gear_id": GEAR_NAME_TO_ID_MAPPING["Kickr 2020"]})
         logger.info(f"Updated activity {activity_id} to TrainerRoad.")
+    # If it is Guitar, hide from home feed and change name to "TO BE DELETED".
+    elif activity.device_name == "Garmin Instinct" and activity.sport_type == "Workout":
+        activity.update_activity({"name": "TO BE DELETED", "hide_from_home": True})

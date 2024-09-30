@@ -24,10 +24,23 @@ class Activity:
         if lazy:
             return
         self.activity = self.get_activity()
-        self.device_name = self.activity["device_name"]
+        self.device_name = self.activity.get("device_name", "UNKNOWN")
         self.private = self.activity["private"]
         self.commute = self.activity["commute"]
         self.sport_type = self.activity["sport_type"]
+
+    def print(self):
+        return json.dumps(self.activity, indent=2)
+
+    def __repr__(self):
+        summary = (
+            f"Summary of {self.activity_id}:\n"
+            f"Device: {self.device_name}\n"
+            f"Private: {self.private}\n"
+            f"Commute: {self.commute}\n"
+            "Use activity.print() to see full activity details"
+        )
+        return summary
 
     def get_activity(self):
         resp = requests.get(
@@ -101,5 +114,16 @@ class GearList:
 
 
 if __name__ == "__main__":
-    activity_list = ActivityList()
-    activity_list.dump()
+    # activity_list = ActivityList()
+    # activity_list.dump()
+    from src.const import GEAR_NAME_TO_ID_MAPPING
+
+    activity = Activity(12528590242)
+    print(activity)
+    # activity.update_activity(
+    #     {
+    #         "hide_from_home": True,
+    #         "commute": True,
+    #         "gear_id": GEAR_NAME_TO_ID_MAPPING["FX 2020"],
+    #     }
+    # )

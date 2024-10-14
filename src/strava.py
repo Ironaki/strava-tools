@@ -62,6 +62,9 @@ class Activity:
     def get_link(self):
         return f"https://www.strava.com/activities/{self.activity_id}"
 
+    def has_cadence(self):
+        return "average_cadence" in self.activity
+
 
 class ActivityList:
     def __init__(self):

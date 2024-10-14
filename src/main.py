@@ -76,11 +76,13 @@ def update_activity(activity_id):
         activity.device_name in ["Garmin Instinct", "Garmin Enduro 3"]
         and activity.sport_type == "Ride"
     ):
+        # FX 2020 has a cadence sensor, Cream Mini does not
+        gear_name = "FX 2020" if activity.has_cadence() else "Cream Mini"
         activity.update_activity(
             {
                 "hide_from_home": True,
                 "commute": True,
-                "gear_id": GEAR_NAME_TO_ID_MAPPING["FX 2020"],
+                "gear_id": GEAR_NAME_TO_ID_MAPPING[gear_name],
             }
         )
         logger.info(f"Updated activity {activity_id} to commute.")

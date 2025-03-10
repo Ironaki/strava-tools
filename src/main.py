@@ -80,7 +80,7 @@ def update_activity(activity_id):
         gear_name = "FX 2020" if activity.has_cadence() else "Cream Mini"
         activity.update_activity(
             {
-                "hide_from_home": True,
+                "hide_from_home": activity.distance < 7000,  # Hide if less than 7km
                 "commute": True,
                 "gear_id": GEAR_NAME_TO_ID_MAPPING[gear_name],
             }

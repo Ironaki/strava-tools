@@ -25,8 +25,10 @@ class Activity:
             return
         self.activity = self.get_activity()
         self.device_name = self.activity.get("device_name", "UNKNOWN")
+        self.distance = self.activity.get("distance", 0)
         self.private = self.activity["private"]
         self.commute = self.activity["commute"]
+        self.hide_from_home = self.activity.get("hide_from_home", False)
         self.sport_type = self.activity["sport_type"]
 
     def print(self):

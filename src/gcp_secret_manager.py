@@ -14,15 +14,11 @@ class GCPSecretsManager:
         env = os.environ.get("ENV", "local")
         if env == "local":
             # Look for the service account key file
-            key_file = "keys/331e779f-66ca-42a4-9682-a2c9d1ae8937.json"
-            if os.path.exists(key_file):
-                self.client = (
-                    secretmanager.SecretManagerServiceClient.from_service_account_json(
-                        key_file
-                    )
+            self.client = (
+                secretmanager.SecretManagerServiceClient.from_service_account_json(
+                    "keys/331e779f-66ca-42a4-9682-a2c9d1ae8937.json"
                 )
-            else:
-                raise FileNotFoundError("No GCP keys")
+            )
         else:
             self.client = secretmanager.SecretManagerServiceClient()
 

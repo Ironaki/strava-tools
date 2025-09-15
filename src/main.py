@@ -90,6 +90,14 @@ def update_activity(activity_id):
     elif activity.device_name == "TrainerRoad":
         activity.update_activity({"gear_id": GEAR_NAME_TO_ID_MAPPING["Kickr 2020"]})
         logger.info(f"Updated activity {activity_id} to TrainerRoad.")
+    elif activity.sport_type == "Run" and activity.distance < 1000:
+        # Hide and make commute if less than 1000 m
+        activity.update_activity({"hide_from_home": True, "commute": True})
+        logger.info(f"Updated activity {activity_id} to commute.")
+    elif activity.sport_type == "Walk" and activity.distance < 2000:
+        # Hide and make commute if less than 2000 m
+        activity.update_activity({"hide_from_home": True, "commute": True})
+        logger.info(f"Updated activity {activity_id} to commute.")
     # If it is Guitar, hide from home feed and change name to "TO BE DELETED".
     elif activity.device_name == "Garmin Instinct" and activity.sport_type == "Workout":
         activity.update_activity({"name": "TO BE DELETED", "hide_from_home": True})

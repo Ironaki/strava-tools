@@ -1,4 +1,5 @@
 import logging
+import os
 
 from google.cloud import secretmanager
 
@@ -8,7 +9,22 @@ logger = logging.getLogger(__name__)
 class GCPSecretsManager:
     def __init__(self, project_id="main-pj-al"):
         self.project_id = project_id
-        self.client = secretmanager.SecretManagerServiceClient()
+
+        # Use service account key file for local development
+        env = os.environ.get("ENV", "local")
+        if env == "local":
+            # Look for the service account key file
+            key_file = "keys/331e779f-66ca-42a4-9682-a2c9d1ae8937.json"
+            if os.path.exists(key_file):
+                self.client = (
+                    secretmanager.SecretManagerServiceClient.from_service_account_json(
+                        key_file
+                    )
+                )
+            else:
+                raise FileNotFoundError("No GCP keys")
+        else:
+            self.client = secretmanager.SecretManagerServiceClient()
 
     def access_secret_version(self, secret_id, version_id="latest"):
         # Build the resource name of the secret version
